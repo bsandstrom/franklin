@@ -37,7 +37,13 @@
   }
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
 .Chart-container {
-  width: 200px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }

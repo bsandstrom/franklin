@@ -1,31 +1,47 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut, Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+const bondBreakdown = [
+  {
+    label: 'City Hall',
+    cost: 5,
+  },
+  {
+    label: 'Roads',
+    cost: 9,
+  },
+  {
+    label: 'Trestle Bridge',
+    cost: 3.5,
+  },
+  {
+    label: 'White Water Park',
+    cost: 2.5,
+  },
+
+]
+
+const doughnutData = {
+  labels: bondBreakdown.map(b => b.label),
   datasets: [
     {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
+      label: 'Proposed Cost',
+      data: bondBreakdown.map(b => b.cost),
       backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(75, 192, 192, 0.5)',
       ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
+      // borderColor: [
+      //   'rgba(255, 99, 132, 1)',
+      //   'rgba(54, 162, 235, 1)',
+      //   'rgba(255, 206, 86, 1)',
+      //   'rgba(75, 192, 192, 1)',
+      // ],
       borderWidth: 1,
     },
   ],
@@ -33,6 +49,13 @@ export const data = {
 
 export function ChartExample() {
   return (<div className="Chart-container">
-  <Pie width={200} height={200} data={data} />
+
+<table>
+          
+            {
+              bondBreakdown.map(b => (<tr><td>{b.label}</td><td>{b.cost} Million</td></tr>))
+            }
+        </table>
+  <Doughnut width={500} height={500} data={doughnutData} />
   </div>);
 }

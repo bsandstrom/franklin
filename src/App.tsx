@@ -6,15 +6,14 @@ import { ChartExample } from './ChartExample';
 function App() {
   return (
     <div>
-      <header className="App-header">
+      {/* <header className="App-header">
         header!
-      </header>
-      <body>
+      </header> */}
+
         <h1>
-          This is a website for franklin nh
+          Proposed Bond Budget Breakdown
         </h1>
         <ChartExample />
-      </body>
     </div>
   );
 }
