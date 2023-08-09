@@ -31,17 +31,12 @@ const doughnutData = {
       label: 'Proposed Cost',
       data: bondBreakdown.map(b => b.cost),
       backgroundColor: [
-        'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
-        'rgba(255, 206, 86, 0.5)',
-        'rgba(75, 192, 192, 0.5)',
+        'rgba(255, 99, 132, .75)',
+        'rgba(54, 162, 235, .75)',
+        'rgba(255, 206, 86, .75)',
+        'rgba(75, 192, 192, .75)',
       ],
-      // borderColor: [
-      //   'rgba(255, 99, 132, 1)',
-      //   'rgba(54, 162, 235, 1)',
-      //   'rgba(255, 206, 86, 1)',
-      //   'rgba(75, 192, 192, 1)',
-      // ],
+      color: 'white',
       borderWidth: 1,
     },
   ],
@@ -53,8 +48,9 @@ export function ChartExample() {
 <table>
           
             {
-              bondBreakdown.map(b => (<tr><td>{b.label}</td><td>{b.cost} Million</td></tr>))
+              bondBreakdown.map(b => (<tr><td>{b.label}</td><td>${b.cost} Million</td></tr>))
             }
+            <tr><td>Total:</td><td>${bondBreakdown.reduce((( a, b) => a + b.cost), 0)} Million</td></tr>
         </table>
   <Doughnut width={500} height={500} data={doughnutData} />
   </div>);

@@ -5,7 +5,7 @@ import { ChartExample } from './ChartExample';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       {/* <header className="App-header">
         header!
       </header> */}
@@ -13,6 +13,7 @@ function App() {
         <h1>
           Proposed Bond Budget Breakdown
         </h1>
+        
         <ChartExample />
     </div>
   );
