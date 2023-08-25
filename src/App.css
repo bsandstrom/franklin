@@ -15,6 +15,10 @@ body {
   font-size: 18px;
 }
 
+.App tr.highlighted {
+  font-weight: bold;
+}
+
 .App {
   display: flex;
   flex-direction: column;

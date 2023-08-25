@@ -1,4 +1,4 @@
-import React, { PureComponent, SVGProps } from "react";
+import React, { PureComponent, SVGProps, useState } from "react";
 import {
 	PieChart,
 	Pie,
@@ -20,6 +20,8 @@ const colors = [
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
+	x,
+	y,
 	cx,
 	cy,
 	midAngle,
@@ -30,34 +32,40 @@ const renderCustomizedLabel = ({
 }: PieLabelRenderProps) => {
 	const radius =
 		Number(innerRadius) + (Number(outerRadius) - Number(innerRadius)) * 0.5;
-	const x = Number(cx) + Number(radius) * Math.cos(-Number(midAngle) * RADIAN);
-	const y = Number(cy) + Number(radius) * Math.sin(-Number(midAngle) * RADIAN);
+	// const x = Number(cx) + Number(radius) * Math.cos(-Number(midAngle) * RADIAN);
+	// const y = Number(cy) + Number(radius) * Math.sin(-Number(midAngle) * RADIAN);
 
 	return (
-		// <text
-		// 	x={x}
-		// 	y={y}
-		// 	fill="white"
-		// 	textAnchor={x > Number(cx) ? "start" : "end"}
-		// 	dominantBaseline="central"
-		// >
-		// 	{`${bondBreakdown[index ?? 0].name}`}
-		// </text>
-		<Label position="outside">{`${bondBreakdown[index ?? 0].name}`}</Label>
+		<text
+			x={x}
+			y={y}
+			fill="white"
+			textAnchor={x > Number(cx) ? "start" : "end"}
+			dominantBaseline="central"
+		>
+			{`${bondBreakdown[index ?? 0].name}`}
+		</text>
+		// <Label position="outside">{`${bondBreakdown[index ?? 0].name}`}</Label>
 	);
 };
 
-export default function Rechart() {
+export default function BudgetBreakdown() {
+	const [highlightedIndex, setHighlightedIndex] = useState<Number | null>(null);
+
 	return (
 		<>
 			<h1>Proposed Bond Budget Breakdown</h1>
 			<table>
-				{bondBreakdown.map((b) => (
-					<tr>
-						<td>{b.name}</td>
-						<td>${b.value} Million</td>
-					</tr>
-				))}
+				{bondBreakdown.map((b, index) => {
+					const props =
+						index === highlightedIndex ? { className: "highlighted" } : {};
+					return (
+						<tr {...props}>
+							<td>{b.name}</td>
+							<td>${b.value} Million</td>
+						</tr>
+					);
+				})}
 				{/* <hr /> */}
 				<tr>
 					<td>
@@ -70,8 +78,7 @@ export default function Rechart() {
 					</td>
 				</tr>
 			</table>
-			{/* <RadialChart data={myData} width={300} height={300} /> */}
-			<PieChart width={600} height={600}>
+			<PieChart width={800} height={600}>
 				<Pie
 					dataKey="value"
 					isAnimationActive
@@ -81,6 +88,13 @@ export default function Rechart() {
 					outerRadius={250}
 					innerRadius={150}
 					legendType="circle"
+					// label
+					// label={(props) => {
+					// 	console.log(props);
+					// 	return <>label!</>;
+					// }}
+					onMouseEnter={(data, index) => setHighlightedIndex(index)}
+					onMouseLeave={() => setHighlightedIndex(null)}
 					label={renderCustomizedLabel}
 				>
 					{bondBreakdown.map((entry, index) => (
