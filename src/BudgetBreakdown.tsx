@@ -1,14 +1,5 @@
-import React, { PureComponent, SVGProps, useState } from "react";
-import {
-	PieChart,
-	Pie,
-	Legend,
-	Tooltip,
-	ResponsiveContainer,
-	Cell,
-	PieLabelRenderProps,
-	Label,
-} from "recharts";
+import { useState } from "react";
+import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps } from "recharts";
 import { bondBreakdown } from "./ChartExample";
 
 const colors = [
@@ -18,23 +9,7 @@ const colors = [
 	"rgba(75, 192, 192, .75)",
 ];
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-	x,
-	y,
-	cx,
-	cy,
-	midAngle,
-	innerRadius,
-	outerRadius,
-	percent,
-	index,
-}: PieLabelRenderProps) => {
-	const radius =
-		Number(innerRadius) + (Number(outerRadius) - Number(innerRadius)) * 0.5;
-	// const x = Number(cx) + Number(radius) * Math.cos(-Number(midAngle) * RADIAN);
-	// const y = Number(cy) + Number(radius) * Math.sin(-Number(midAngle) * RADIAN);
-
+const renderCustomizedLabel = ({ x, y, cx, index }: PieLabelRenderProps) => {
 	return (
 		<text
 			x={x}
@@ -45,7 +20,6 @@ const renderCustomizedLabel = ({
 		>
 			{`${bondBreakdown[index ?? 0].name}`}
 		</text>
-		// <Label position="outside">{`${bondBreakdown[index ?? 0].name}`}</Label>
 	);
 };
 
@@ -78,21 +52,16 @@ export default function BudgetBreakdown() {
 					</td>
 				</tr>
 			</table>
-			<PieChart width={800} height={600}>
+			<PieChart width={800} height={500}>
 				<Pie
 					dataKey="value"
 					isAnimationActive
 					data={bondBreakdown}
 					cx="50%"
 					cy="50%"
-					outerRadius={250}
-					innerRadius={150}
+					outerRadius={200}
+					innerRadius={100}
 					legendType="circle"
-					// label
-					// label={(props) => {
-					// 	console.log(props);
-					// 	return <>label!</>;
-					// }}
 					onMouseEnter={(data, index) => setHighlightedIndex(index)}
 					onMouseLeave={() => setHighlightedIndex(null)}
 					label={renderCustomizedLabel}

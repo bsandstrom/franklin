@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import BudgetBreakdown from "./BudgetBreakdown";
 import Overview from "./Overview";
