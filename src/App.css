@@ -7,11 +7,15 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   color: white;
-  font: Helvetica Neue, Helvetica;
-  font-size: 14px;
 }
 
-.Chart-container {
+.App td {
+  
+  font: Helvetica Neue, Helvetica;
+  font-size: 18px;
+}
+
+.App {
   display: flex;
   flex-direction: column;
   justify-content: center;
